@@ -156,6 +156,15 @@ LOGGING = {
 }
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ),
+}
+
+
 RABBITMQ_DEFAULT_USER = os.getenv("RABBITMQ_DEFAULT_USER")
 RABBITMQ_DEFAULT_PASS = os.getenv("RABBITMQ_DEFAULT_PASS")
 

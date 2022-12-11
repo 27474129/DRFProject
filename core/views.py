@@ -15,6 +15,7 @@ from rest_framework.status import (
     HTTP_404_NOT_FOUND, HTTP_400_BAD_REQUEST, HTTP_500_INTERNAL_SERVER_ERROR, 
 )
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
 from djangoproject.settings import DEBUG
 from .models import Product, Category
@@ -141,6 +142,14 @@ class DecrementionProductQuantity(BaseAPIView):
             return Response({"success": False, "errors": "Product not found"}, status=HTTP_404_NOT_FOUND)
 
 
+class RootView(BaseView):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        return HttpResponse("Root page")
 
-def root(request):
-    return HttpResponse("Root page")
+
+class RootAPIView(BaseAPIView): 
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> Response:
+        return Response({"success": True})

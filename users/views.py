@@ -1,7 +1,7 @@
 import logging
 from typing import Any
 
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, FormView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy, reverse
@@ -47,6 +47,10 @@ class UserLogoutView(LogoutView):
         if not request.session.keys():
             return HttpResponseRedirect(reverse("auth_page"))
         return super().get(request, *args, **kwargs)
+
+
+class UserAuthByTokenView(BaseView, TemplateView):
+    template_name = "users/auth_by_token.html"
 
 
 class AccessFailedView(BaseView, TemplateView):
